@@ -1,0 +1,8 @@
+.venv
+dist/
+__pycache__
+.idea/
+.DS_Store
+.env
+.vscode
+.ruff_cache
