@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zenguard-benchmarks"
-version = "0.0.6"
+version = "0.0.8"
 description = "Test ZenGuard AI against different datasets and benchmarks."
 authors = ["Baur Krykpayev <baur@zenguard.ai>"]
 license = "MIT"
@@ -15,6 +15,7 @@ httpx = "^0.27.2"
 tqdm = "^4.66.5"
 pandas = "^2.2.3"
 datasets = "^3.0.1"
+matplotlib = "^3.9.2"
 
 
 [tool.poetry.group.dev.dependencies]
