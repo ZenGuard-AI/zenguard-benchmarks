@@ -79,9 +79,10 @@ class ZenPromptAttacksBenchmark:
         print("Dataset:", self._dataset_name)
         print("ZenGuard Benchmark Results:")
         print(f"Total samples: {total_samples}")
-        print(f"Correct: {correct}")
-        print(f"False positive: {false_positive}")
-        print(f"False negative: {false_negative}")
+        print(f"    Correct: {correct}")
+        print(f"    False positives: {false_positive}")
+        print(f"    False negatives: {false_negative}")
+        print(f"    Accuracy: {correct / total_samples:.2%}")
 
         return {
             "total_samples": total_samples,
@@ -89,10 +90,3 @@ class ZenPromptAttacksBenchmark:
             "false_positive": false_positive,
             "false_negative": false_negative,
         }
-
-
-if __name__ == "__main__":
-    api_key = "jzVHclxS5Qv4ggHOukA5hSZTU0ZGEVxs3xjkilQP7bY"
-    benchmark = ZenPromptAttacksBenchmark(api_key)
-    benchmark.init_dataset("JasperLS/prompt-injections", "text", "label")
-    benchmark.benchmark()
