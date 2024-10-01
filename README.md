@@ -4,24 +4,45 @@
 
 # ZenGuard AI Benchmarks
 
-This is a repository for ZenGuard AI benchmarks.
+This repository contains benchmarks for [ZenGuard AI](https://zenguard.ai) and information on how to run them.
 
-It contains two types of benchmarks:
+There are two types of benchmarks that we run against ZenGuard AI:
 
-1. Benchmarks using Hugging Face datasets
-2. ZenGuard AI Generated Benchmarks
+1. Hugging Face datasets based benchmarks
+2. ZenGuard AI Generated Benchmark - Zen Bench
 
-This repository shows both benchmark results and how to run benchmarks yourself against ZenGuard AI.
+Here you can find both benchmark results and how to run them yourself.
 
- ## Benchmarks using Hugging Face datasets
+## Hugging Face datasets benchmarks
 
- ### Results
+We are constantly monitoring Hugging Face for new datasets that relate to GenAI security. Then we run them against ZenGuard AI to find any potential security issues with our product.
 
-TODO(baur) add table with results - datasets
+### ZenGuard AI Accuracy
 
- ### How to run a benchmark
+| Dataset | Accuracy | Date Added |
+|---------|----------|------------|
+| [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 95.5% | 2024-05-15 |
+
+### Run yourself
 
 Follow this [guide](assets/colabs/zenguard-benchmarks.ipynb)
 
+#### Benchmarking Output
 
- ## ZenGuard Benchmarks
+## Zen Bench
+
+## More information
+
+A much more detailed documentation is available at [docs.zenguard.ai](https://docs.zenguard.ai/).
+
+Test the capabilities of ZenGuard AI in our ZenGuard [Playground](https://console.zenguard.ai/chat). It's available to start for free to understand how our guardrails can enhance your GenAI applications.
+
+Check out our [Client](https://github.com/ZenGuard-AI/fast-llm-security-guardrails) library to get started with integrating ZenGuard AI into your project.
+
+## Support
+
+[Book a Demo](https://calendly.com/galym-u) or just shoot us an email to hello@zenguard.ai
+
+Topics we care about - LLM Security, LLM Guardrails, Prompt Injections, GenAI Security.
+
+<p align="center">Developed with ❤️ by <a href="https://zenguard.ai/">ZenGuard AI</a></p>
