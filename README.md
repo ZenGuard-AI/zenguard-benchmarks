@@ -23,9 +23,12 @@ We are constantly monitoring Hugging Face for new datasets that relate to GenAI 
 |---------|----------|------------|
 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 95.5% | 2024-05-15 |
 
-### Run yourself
+### Check for yourself. Or run your own dataset.
 
-Follow this [guide](assets/colabs/zenguard-benchmarks.ipynb)
+We have developed a ZenGuard Benchmarks PyPi package to help test and benchmark ZenGuard AI better.
+
+Here are the instructions on how to use the package. <a target="_blank" href="https://colab.research.google.com/github/ZenGuard-AI/zenguard-benchmarks/blob/main/assets/colabs/zenguard-benchmarks.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+
 
 #### Benchmarking Output
 
@@ -44,5 +47,8 @@ Check out our [Client](https://github.com/ZenGuard-AI/fast-llm-security-guardrai
 [Book a Demo](https://calendly.com/galym-u) or just shoot us an email to hello@zenguard.ai
 
 Topics we care about - LLM Security, LLM Guardrails, Prompt Injections, GenAI Security.
+
+---
+
 
 <p align="center">Developed with ❤️ by <a href="https://zenguard.ai/">ZenGuard AI</a></p>
