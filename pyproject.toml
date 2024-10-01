@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "zenguard-benchmarks"
-version = "0.0.3"
+version = "0.0.5"
 description = "Test ZenGuard AI against different datasets and benchmarks."
 authors = ["Baur Krykpayev <baur@zenguard.ai>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-    { include = "zenguard-benchmarks" }
+    { include = "zenguard_benchmarks" }
 ]
 
 [tool.poetry.dependencies]
