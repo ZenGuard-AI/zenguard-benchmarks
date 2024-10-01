@@ -2,6 +2,8 @@ import time
 from typing import Optional
 
 import httpx
+import matplotlib.pyplot as plt
+import pandas as pd
 from datasets import load_dataset
 from tqdm import tqdm
 
@@ -20,6 +22,7 @@ class ZenPromptAttacksBenchmark:
         self._dataset_name = dataset_name
         self._prompt_column = prompt_column
         self._label_column = label_column
+        self._results: dict = {}
         try:
             self._dataset = load_dataset(dataset_name)["train"]
         except Exception as e:
@@ -78,15 +81,43 @@ class ZenPromptAttacksBenchmark:
 
         print("Dataset:", self._dataset_name)
         print("ZenGuard Benchmark Results:")
-        print(f"Total samples: {total_samples}")
+        print(f"Total Samples: {total_samples}")
         print(f"    Correct: {correct}")
-        print(f"    False positives: {false_positive}")
-        print(f"    False negatives: {false_negative}")
+        print(f"    False Positives: {false_positive}")
+        print(f"    False Negatives: {false_negative}")
         print(f"    Accuracy: {correct / total_samples:.2%}")
+        print("======== RUN FINISHED ========")
 
-        return {
+        self._results = {
             "total_samples": total_samples,
             "correct": correct,
             "false_positive": false_positive,
             "false_negative": false_negative,
         }
+        return self._results
+
+    def plot(self, results: Optional[dict] = None) -> None:
+        if results is None:
+            results = self._results
+
+        if not results:
+            raise ValueError("No results to plot")
+
+        data = {
+            "Result": ["Total", "Correct", "False Positive", "False Negative"],
+            "Count": [
+                results["total_samples"],
+                results["correct"],
+                results["false_positive"],
+                results["false_negative"],
+            ],
+        }
+
+        df = pd.DataFrame(data)
+        plt.figure(figsize=(8, 6))
+
+        plt.bar(df["Result"], df["Count"], color=["blue", "green", "orange", "red"])
+        plt.title(f"ZenGuard AI Benchmark Results against {self._dataset_name}")
+        plt.xlabel("Result Type")
+        plt.ylabel("Count")
+        plt.show()
