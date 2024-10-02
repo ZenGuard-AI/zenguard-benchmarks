@@ -24,7 +24,9 @@ class ZenPromptAttacksBenchmark:
         self._label_column = label_column
         self._results: dict = {}
         try:
-            self._dataset = load_dataset(dataset_name)["train"]
+            self._dataset = load_dataset(dataset_name)
+            if "train" not in self._dataset:
+                raise ValueError("Dataset must contain at least one 'train' split")
         except Exception as e:
             raise ValueError(f"Failed to load dataset: {e}")
 
@@ -64,20 +66,26 @@ class ZenPromptAttacksBenchmark:
         false_positive = 0  # ZenGuard detected a prompt attack, but the label was not a prompt attack
         false_negative = 0  # ZenGuard did not detect a prompt attack, but the label was a prompt attack
 
-        for sample in tqdm(self._dataset, total=total_samples, desc="Benchmarking"):
-            prompt = sample[self._prompt_column]
-            label = sample[self._label_column]
-            zenguard_is_detected = self.detect_prompt_injection(prompt)
-            real_is_detected = self._normalize_label(label)
-            if zenguard_is_detected and real_is_detected:
-                correct += 1
-            elif not zenguard_is_detected and not real_is_detected:
-                correct += 1
-            elif zenguard_is_detected and not real_is_detected:
-                false_positive += 1
-            elif not zenguard_is_detected and real_is_detected:
-                false_negative += 1
-            time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
+        for split in ["train", "test"]:
+            if split in self._dataset:
+                for sample in tqdm(
+                    self._dataset[split],
+                    total=len(self._dataset[split]),
+                    desc=f"Benchmarking progress for: {split}",
+                ):
+                    prompt = sample[self._prompt_column]
+                    label = sample[self._label_column]
+                    zenguard_is_detected = self.detect_prompt_injection(prompt)
+                    real_is_detected = self._normalize_label(label)
+                    if zenguard_is_detected and real_is_detected:
+                        correct += 1
+                    elif not zenguard_is_detected and not real_is_detected:
+                        correct += 1
+                    elif zenguard_is_detected and not real_is_detected:
+                        false_positive += 1
+                    elif not zenguard_is_detected and real_is_detected:
+                        false_negative += 1
+                    time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
 
         print("Dataset:", self._dataset_name)
         print("ZenGuard Benchmark Results:")
