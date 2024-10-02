@@ -25,7 +25,7 @@ We are constantly monitoring Hugging Face for new datasets that relate to GenAI 
 
 ### Check for yourself. Or run your own dataset.
 
-We have developed a ZenGuard Benchmarks PyPi package to help test and benchmark ZenGuard AI better.
+We have developed the [ZenGuard Benchmarks PyPi package](https://pypi.org/project/zenguard-benchmarks/) to help test and benchmark ZenGuard AI better.
 
 Here are the instructions on how to use the package. <a target="_blank" href="https://colab.research.google.com/github/ZenGuard-AI/zenguard-benchmarks/blob/main/assets/colabs/zenguard-benchmarks.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 
