@@ -1,7 +1,9 @@
 import time
-from typing import Optional
+import json
+from typing import Optional, Union
 
 import httpx
+import requests
 import matplotlib.pyplot as plt
 import pandas as pd
 from datasets import load_dataset
@@ -9,7 +11,9 @@ from tqdm import tqdm
 
 CONFIG_TIMEOUT = 60
 CONFIG_TIME_BETWEEN_REQUESTS = 0.1
-PROMPT_ATTACKS_API = "https://api.zenguard.ai/v1/detect/prompt_injection"
+BACKEND = "https://api.zenguard.ai"
+PROMPT_ATTACKS_API = f"{BACKEND}/v1/detect/prompt_injection"
+ZEN_BENCHMARK_API = f"{BACKEND}/v1/benchmark/zen"
 
 
 class ZenPromptAttacksBenchmark:
@@ -50,7 +54,7 @@ class ZenPromptAttacksBenchmark:
 
         return response.json().get("is_detected")
 
-    def _normalize_label(self, label: str | int | None) -> bool:
+    def _normalize_label(self, label: Union[str, int, None]) -> bool:
         # True means the prompt is a prompt attack
         # False means the prompt is not a prompt attack
         if label is None:
@@ -60,50 +64,29 @@ class ZenPromptAttacksBenchmark:
 
         return label.lower() == "true"
 
-    def benchmark(self) -> dict:
-        total_samples = len(self._dataset["train"]) + len(self._dataset["test"])
-        correct = 0
-        false_positive = 0  # ZenGuard detected a prompt attack, but the label was not a prompt attack
-        false_negative = 0  # ZenGuard did not detect a prompt attack, but the label was a prompt attack
+    def benchmark(self):
+        with requests.post(ZEN_BENCHMARK_API, stream=True) as response:
+            total_prompts = None
+            with tqdm(total=100, unit='%', desc="Zenguard Benchmark") as progress_bar:
+                for chunk in response.iter_content(chunk_size=1024):
+                    if chunk:
+                        data = json.loads(chunk.decode())
 
-        for split in ["train", "test"]:
-            if split in self._dataset:
-                for sample in tqdm(
-                    self._dataset[split],
-                    total=len(self._dataset[split]),
-                    desc=f"Benchmarking progress for: {split}",
-                ):
-                    prompt = sample[self._prompt_column]
-                    label = sample[self._label_column]
-                    zenguard_is_detected = self.detect_prompt_injection(prompt)
-                    real_is_detected = self._normalize_label(label)
-                    if zenguard_is_detected and real_is_detected:
-                        correct += 1
-                    elif not zenguard_is_detected and not real_is_detected:
-                        correct += 1
-                    elif zenguard_is_detected and not real_is_detected:
-                        false_positive += 1
-                    elif not zenguard_is_detected and real_is_detected:
-                        false_negative += 1
-                    time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
+                        if total_prompts is None:
+                            total_prompts = data['total_number_of_prompts']
+                            progress_bar.total = total_prompts
+                            progress_bar.unit = 'prompts'
 
-        print("Dataset:", self._dataset_name)
-        print("ZenGuard Benchmark Results:")
-        print(f"Total Samples: {total_samples}")
-        print(f"    Correct: {correct}")
-        print(f"    False Positives: {false_positive}")
-        print(f"    False Negatives: {false_negative}")
-        print(f"    Accuracy: {correct / total_samples:.2%}")
-        print("======== RUN FINISHED ========")
+                        progress_bar.n = data['number_of_prompts_completed']
+                        progress_bar.refresh()
 
-        self._results = {
-            "total_samples": total_samples,
-            "correct": correct,
-            "false_positive": false_positive,
-            "false_negative": false_negative,
-        }
-        return self._results
-
+            # Print results below the progress bar
+            print(f"\nScore: {data['score']}")
+            print("\nCategories:")
+            for category in data['categories']:
+                category_score = int(category['correct_number']) / int(category['total'])
+                print(f"\t{category['category_name']} Total: {category['total']}, Correct: {category['correct_number']}, Score: {category_score}")
+                
     def plot(self, results: Optional[dict] = None) -> None:
         if results is None:
             results = self._results
