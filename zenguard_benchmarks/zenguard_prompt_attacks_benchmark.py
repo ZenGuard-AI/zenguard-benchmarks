@@ -61,7 +61,12 @@ class ZenPromptAttacksBenchmark:
         return label.lower() == "true"
 
     def benchmark(self) -> dict:
-        total_samples = len(self._dataset["train"]) + len(self._dataset["test"])
+        total_samples = len(self._dataset["train"])
+
+        # test split is optional
+        if "test" in self._dataset:
+            total_samples += len(self._dataset["test"])
+
         correct = 0
         false_positive = 0  # ZenGuard detected a prompt attack, but the label was not a prompt attack
         false_negative = 0  # ZenGuard did not detect a prompt attack, but the label was a prompt attack
