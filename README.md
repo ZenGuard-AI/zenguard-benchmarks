@@ -21,7 +21,7 @@ We are constantly monitoring Hugging Face for new datasets that relate to GenAI 
 
 | Dataset | Accuracy | Date Added |
 |---------|----------|------------|
-| [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 95.5% | 2024-05-15 |
+| [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
 
 ### Check for yourself. Or run your own dataset.
 
