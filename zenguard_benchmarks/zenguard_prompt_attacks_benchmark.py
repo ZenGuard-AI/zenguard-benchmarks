@@ -79,7 +79,7 @@ class ZenPromptAttacksBenchmark:
                     desc=f"Benchmarking split: {split}",
                 ):
                     prompt = sample[self._prompt_column]
-                    label = sample[self._label_column]
+                    label = sample.get(self._label_column, None)
                     zenguard_is_detected = self.detect_prompt_injection(prompt)
                     real_is_detected = self._normalize_label(label)
                     if zenguard_is_detected and real_is_detected:
@@ -92,7 +92,7 @@ class ZenPromptAttacksBenchmark:
                         false_negative += 1
                     time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
 
-        print("\n========== RUN RESULTS START ==========\n")
+        print("\n========== BENCHMARK RESULTS START ==========\n")
         print("Dataset:", self._dataset_name)
         print("ZenGuard Benchmark Results:")
         print(f"Total Samples: {total_samples}")
@@ -100,7 +100,7 @@ class ZenPromptAttacksBenchmark:
         print(f"    False Positives: {false_positive}")
         print(f"    False Negatives: {false_negative}")
         print(f"    Accuracy: {correct / total_samples:.2%}")
-        print("\n========== RUN RESULTS END ==========\n")
+        print("\n========== BENCHMARK RESULTS END ==========\n")
 
         self._results = {
             "total_samples": total_samples,
