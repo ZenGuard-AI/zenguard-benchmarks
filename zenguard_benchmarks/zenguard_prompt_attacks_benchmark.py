@@ -76,7 +76,7 @@ class ZenPromptAttacksBenchmark:
                 for sample in tqdm(
                     self._dataset[split],
                     total=len(self._dataset[split]),
-                    desc=f"Benchmarking split: {split}",
+                    desc=f"Benchmarking split={split}",
                 ):
                     prompt = sample[self._prompt_column]
                     label = None
