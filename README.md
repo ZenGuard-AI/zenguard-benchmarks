@@ -21,9 +21,11 @@ We are constantly monitoring Hugging Face for new datasets that relate to GenAI 
 
 | # | Dataset | Accuracy | Date Added |
 |---|---------|----------|------------|
-| 1 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
-| 2 | [JasperLS/prompt-injections](https://huggingface.co/datasets/JasperLS/prompt-injections) | 87% | 2024-05-15 |
-| 3 | [aporia-ai/prompt_injection](https://huggingface.co/datasets/aporia-ai/prompt_injection) | 87.68% | 2024-05-15 |
+
+| 1 | [xTRam1/safe-guard-prompt-injection](https://huggingface.co/datasets/xTRam1/safe-guard-prompt-injection) | 96% | 2024-07-01 |
+| 2 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
+| 3 | [JasperLS/prompt-injections](https://huggingface.co/datasets/JasperLS/prompt-injections) | 87% | 2024-05-15 |
+| 4 | [aporia-ai/prompt_injection](https://huggingface.co/datasets/aporia-ai/prompt_injection) | 87.68% | 2024-05-15 |
 
 ### Check for yourself. Or run your own dataset.
 
