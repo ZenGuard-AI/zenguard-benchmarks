@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zenguard-benchmarks"
-version = "0.0.10"
+version = "0.1.0"
 description = "Test ZenGuard AI against different datasets and benchmarks."
 authors = ["Baur Krykpayev <baur@zenguard.ai>"]
 license = "MIT"

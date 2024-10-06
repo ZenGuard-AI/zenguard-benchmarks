@@ -13,15 +13,17 @@ There are two types of benchmarks that we run against ZenGuard AI:
 
 Here you can find both benchmark results and how to run them yourself.
 
-## Hugging Face datasets benchmarks
+## Public Datasets benchmarks
 
 We are constantly monitoring Hugging Face for new datasets that relate to GenAI security. Then we run them against ZenGuard AI to find any potential security issues with our product.
 
-### ZenGuard AI Accuracy
+### ZenGuard AI Accuracy against Hugging Face datasets
 
-| Dataset | Accuracy | Date Added |
-|---------|----------|------------|
-| [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 95.5% | 2024-05-15 |
+| # | Dataset | Accuracy | Date Added |
+|---|---------|----------|------------|
+| 1 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
+| 2 | [JasperLS/prompt-injections](https://huggingface.co/datasets/JasperLS/prompt-injections) | 87% | 2024-05-15 |
+| 3 | [aporia-ai/prompt_injection](https://huggingface.co/datasets/aporia-ai/prompt_injection) | 87.68% | 2024-05-15 |
 
 ### Check for yourself. Or run your own dataset.
 
