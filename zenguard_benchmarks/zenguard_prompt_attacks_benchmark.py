@@ -92,6 +92,7 @@ class ZenPromptAttacksBenchmark:
                         false_negative += 1
                     time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
 
+        print("\n========== RUN RESULTS START ==========\n")
         print("Dataset:", self._dataset_name)
         print("ZenGuard Benchmark Results:")
         print(f"Total Samples: {total_samples}")
@@ -99,7 +100,7 @@ class ZenPromptAttacksBenchmark:
         print(f"    False Positives: {false_positive}")
         print(f"    False Negatives: {false_negative}")
         print(f"    Accuracy: {correct / total_samples:.2%}")
-        print("========== RUN FINISHED ==========\n")
+        print("\n========== RUN RESULTS END ==========\n")
 
         self._results = {
             "total_samples": total_samples,
