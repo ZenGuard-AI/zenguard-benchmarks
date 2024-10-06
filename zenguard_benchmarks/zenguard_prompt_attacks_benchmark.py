@@ -76,7 +76,7 @@ class ZenPromptAttacksBenchmark:
                 for sample in tqdm(
                     self._dataset[split],
                     total=len(self._dataset[split]),
-                    desc=f"Benchmarking progress for: {split}",
+                    desc=f"Benchmarking split: {split}",
                 ):
                     prompt = sample[self._prompt_column]
                     label = sample[self._label_column]
@@ -99,7 +99,7 @@ class ZenPromptAttacksBenchmark:
         print(f"    False Positives: {false_positive}")
         print(f"    False Negatives: {false_negative}")
         print(f"    Accuracy: {correct / total_samples:.2%}")
-        print("======== RUN FINISHED ========")
+        print("========== RUN FINISHED ==========\n")
 
         self._results = {
             "total_samples": total_samples,
