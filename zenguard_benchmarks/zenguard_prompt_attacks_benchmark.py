@@ -79,7 +79,9 @@ class ZenPromptAttacksBenchmark:
                     desc=f"Benchmarking split: {split}",
                 ):
                     prompt = sample[self._prompt_column]
-                    label = sample.get(self._label_column, None)
+                    label = None
+                    if self._label_column is not None:
+                        label = sample.get(self._label_column, None)
                     zenguard_is_detected = self.detect_prompt_injection(prompt)
                     real_is_detected = self._normalize_label(label)
                     if zenguard_is_detected and real_is_detected:
