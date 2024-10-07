@@ -58,6 +58,8 @@ Where:
 
 ## Zen Bench
 
+Our own benchmark is incoming.
+
 ## More information
 
 A much more detailed documentation is available at [docs.zenguard.ai](https://docs.zenguard.ai/).
