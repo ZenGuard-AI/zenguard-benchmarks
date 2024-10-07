@@ -23,9 +23,11 @@ We are constantly monitoring Hugging Face for new datasets that relate to GenAI 
 |---|---------|----------|------------|
 | 1 | [xTRam1/safe-guard-prompt-injection](https://huggingface.co/datasets/xTRam1/safe-guard-prompt-injection) | 96% | 2024-07-01 |
 | 2 | [yanismiraoui/prompt_injections](https://huggingface.co/datasets/yanismiraoui/prompt_injections) | 96.5% | 2024-08-01 |
-| 3 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
-| 4 | [JasperLS/prompt-injections](https://huggingface.co/datasets/JasperLS/prompt-injections) | 87% | 2024-05-15 |
-| 5 | [aporia-ai/prompt_injection](https://huggingface.co/datasets/aporia-ai/prompt_injection) | 87.68% | 2024-05-15 |
+| 3 | [Harelix/Prompt-Injection-Mixed-Techniques-2024](https://huggingface.co/datasets/Harelix/Prompt-Injection-Mixed-Techniques-2024) | 92% | 2024-10-01 |
+| 4 | [aporia-ai/prompt_injection](https://huggingface.co/datasets/aporia-ai/prompt_injection) | 87.68% | 2024-05-15 |
+| 5 | [deepset/prompt-injections](https://huggingface.co/datasets/deepset/prompt-injections) | 87% | 2024-05-15 |
+| 6 | [JasperLS/prompt-injections](https://huggingface.co/datasets/JasperLS/prompt-injections) | 87% | 2024-05-15 |
+
 
 ### Check for yourself. Or run your own dataset.
 
