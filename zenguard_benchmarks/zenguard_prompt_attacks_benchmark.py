@@ -55,10 +55,17 @@ class ZenPromptAttacksBenchmark:
         # False means the prompt is not a prompt attack
         if label is None:
             return True
+
         if isinstance(label, int):
             return label == 1
 
-        return label.lower() == "true"
+        if isinstance(label, str):
+            if label.lower() == "malicious":
+                return True
+            if label.lower() == "true":
+                return True
+
+        return False
 
     def benchmark(self) -> dict:
         total_samples = len(self._dataset["train"])
