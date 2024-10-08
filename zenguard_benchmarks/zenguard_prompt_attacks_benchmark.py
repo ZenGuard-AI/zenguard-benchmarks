@@ -1,4 +1,5 @@
 import json
+import time
 from typing import Optional, Union
 
 import httpx
@@ -69,8 +70,60 @@ class ZenPromptAttacksBenchmark:
                 return True
 
         return False
+    
+    def benchmark(self) -> dict:
+        total_samples = len(self._dataset["train"])
 
-    def benchmark(self):
+        # test split is optional
+        if "test" in self._dataset:
+            total_samples += len(self._dataset["test"])
+
+        correct = 0
+        false_positive = 0  # ZenGuard detected a prompt attack, but the label was not a prompt attack
+        false_negative = 0  # ZenGuard did not detect a prompt attack, but the label was a prompt attack
+
+        for split in ["train", "test"]:
+            if split in self._dataset:
+                for sample in tqdm(
+                    self._dataset[split],
+                    total=len(self._dataset[split]),
+                    desc=f"Benchmarking split={split}",
+                ):
+                    prompt = sample[self._prompt_column]
+                    label = None
+                    if self._label_column is not None:
+                        label = sample.get(self._label_column, None)
+                    zenguard_is_detected = self.detect_prompt_injection(prompt)
+                    real_is_detected = self._normalize_label(label)
+                    if zenguard_is_detected and real_is_detected:
+                        correct += 1
+                    elif not zenguard_is_detected and not real_is_detected:
+                        correct += 1
+                    elif zenguard_is_detected and not real_is_detected:
+                        false_positive += 1
+                    elif not zenguard_is_detected and real_is_detected:
+                        false_negative += 1
+                    time.sleep(CONFIG_TIME_BETWEEN_REQUESTS)
+
+        print("\n========== BENCHMARK RESULTS START ==========\n")
+        print("Dataset:", self._dataset_name)
+        print("ZenGuard Benchmark Results:")
+        print(f"Total Samples: {total_samples}")
+        print(f"    Correct: {correct}")
+        print(f"    False Positives: {false_positive}")
+        print(f"    False Negatives: {false_negative}")
+        print(f"    Accuracy: {correct / total_samples:.2%}")
+        print("\n========== BENCHMARK RESULTS END ==========\n")
+
+        self._results = {
+            "total_samples": total_samples,
+            "correct": correct,
+            "false_positive": false_positive,
+            "false_negative": false_negative,
+        }
+        return self._results
+
+    def zen_benchmark(self):
         with requests.post(ZEN_BENCHMARK_API, stream=True) as response:
             total_prompts = None
             with tqdm(total=100, unit='%', desc="Zenguard Benchmark") as progress_bar:
