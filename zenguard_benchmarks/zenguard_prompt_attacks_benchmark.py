@@ -3,9 +3,9 @@ import time
 from typing import Optional, Union
 
 import httpx
-import requests
 import matplotlib.pyplot as plt
 import pandas as pd
+import requests
 from datasets import load_dataset
 from tqdm import tqdm
 
@@ -70,7 +70,7 @@ class ZenPromptAttacksBenchmark:
                 return True
 
         return False
-    
+
     def benchmark(self) -> dict:
         total_samples = len(self._dataset["train"])
 
@@ -126,26 +126,30 @@ class ZenPromptAttacksBenchmark:
     def zen_benchmark(self):
         with requests.post(ZEN_BENCHMARK_API, stream=True) as response:
             total_prompts = None
-            with tqdm(total=100, unit='%', desc="Zenguard Benchmark") as progress_bar:
+            with tqdm(total=100, unit="%", desc="Zenguard Benchmark") as progress_bar:
                 for chunk in response.iter_content(chunk_size=1024):
                     if chunk:
                         data = json.loads(chunk.decode())
 
                         if total_prompts is None:
-                            total_prompts = data['total_number_of_prompts']
+                            total_prompts = data["total_number_of_prompts"]
                             progress_bar.total = total_prompts
-                            progress_bar.unit = 'prompts'
+                            progress_bar.unit = "prompts"
 
-                        progress_bar.n = data['number_of_prompts_completed']
+                        progress_bar.n = data["number_of_prompts_completed"]
                         progress_bar.refresh()
 
             # Print results below the progress bar
             print(f"\nScore: {data['score']}")
             print("\nCategories:")
-            for category in data['categories']:
-                category_score = int(category['correct_number']) / int(category['total'])
-                print(f"\t{category['category_name']} Total: {category['total']}, Correct: {category['correct_number']}, Score: {category_score}")
-                
+            for category in data["categories"]:
+                category_score = int(category["correct_number"]) / int(
+                    category["total"]
+                )
+                print(
+                    f"\t{category['category_name']} Total: {category['total']}, Correct: {category['correct_number']}, Score: {category_score}"
+                )
+
     def plot(self, results: Optional[dict] = None) -> None:
         if results is None:
             results = self._results
@@ -167,7 +171,7 @@ class ZenPromptAttacksBenchmark:
         plt.figure(figsize=(8, 6))
 
         plt.bar(df["Result"], df["Count"], color=["blue", "green", "orange", "red"])
-        plt.title(f"ZenGuard AI Benchmark Results against {self._dataset_name}")
+        plt.title(f"ZenGuard Benchmark Results against {self._dataset_name}")
         plt.xlabel("Result Type")
         plt.ylabel("Count")
         plt.show()
