@@ -56,9 +56,29 @@ Where:
 * `False Negatives`: The number of actual prompt attacks that went undetected.
 * `Accuracy`: The ratio of correctly classified prompts to the total number of samples.
 
-## Zen Bench
+## Zen CX Bench
 
-Our own benchmark is incoming.
+We created CX-skewed benchmark dataset. This dataset is designed to test both generic chat messages and attacks, but also specific CX-related prompts and attacks.
+CX prompts were carefully crafted to be similar to the messages that we see in our day-to-day production.
+
+Dataset Info:
+* 1200 prompts
+* 200 prompt attacks
+* 1000 generic chat messages where 300 are CX specific.
+
+Results:
+
+| # | Name | Accuracy | F1 | False Positives | Date Added |
+|---|---------|----------|----------|----------|------------|
+| 1 | ZenGuard | 96.3% | 87% | 6 | 2025-01-14 |
+| 2 | Protect AI | 91% | 73.4% | 70 | 2025-01-14 |
+| 3 | Microsoft Prompt Shield | 74.8% | 41.2% | 218 | 2025-01-14 |
+| 4 | Guardrails AI | 70.4% | 20.9% | 212 | 2025-01-14 |
+| 5 | Meta Llama Guard | 55.7% | 39.6% | 515 | 2025-01-14 |
+| 6 | Lakera | 48.4% | 37.5% | 615 | 2025-01-14 |
+
+
+These results indicate high False Positive rates, meaning that some of the solutions are overaggressive in their detections of generic and CX-specific prompts. The high number of False Positives is very detrimental to the production systems and user experience.
 
 ## More information
 
