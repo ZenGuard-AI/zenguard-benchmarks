@@ -62,9 +62,9 @@ We created CX-skewed benchmark dataset. This dataset is designed to test both ge
 CX prompts were carefully crafted to be similar to the messages that we see in our day-to-day production.
 
 Dataset Info:
-* 1200 prompts
-* 200 prompt attacks
-* 1000 generic chat messages where 300 are CX specific.
+* 1200 prompts including:
+  * 200 attacks - jailbreaks, prompt injections.
+  * 1000 generic prompts - 700 generic chat messages and 300 CX-specific agentic interactions
 
 Results:
 
